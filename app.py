@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -8,13 +9,14 @@ from sklearn.linear_model import LinearRegression
 st.set_page_config(page_title="Karachi Climate Dashboard", page_icon="🌦️", layout="wide")
 
 st.title("🌦️ Karachi Climate Change: 30-Year Trend & Forecast")
-st.markdown("NASA POWER dataset ki buniyad par Karachi ke temperature aur rainfall ka tajziya.")
+st.markdown("Analysis of Karachi's temperature and rainfall based on the NASA POWER dataset")
 
-# Data load function (taake har click par file dobara load na ho)
+# Data load function (sirf ek baar, dynamic path ke saath)
 @st.cache_data
 def load_data():
+    csv_path = os.path.join(os.path.dirname(__file__), "karachi-data.csv")
     df = pd.read_csv(
-        r"C:\Users\P.C\Downloads\karachi-data.csv",
+        csv_path,
         skiprows=11,
         na_values=[-999, -999.0, -999.00]
     )
